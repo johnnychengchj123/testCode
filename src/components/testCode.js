@@ -1,28 +1,43 @@
-var findKthLargest = function (nums, k) {
-  if (!nums.length) return -1
-  // 调堆
-  let heapSort = function (arr, start, end) {
-    let temp = arr[start]
-    for (let j = 2 * start + 1; j <= end; j = 2 * j + 1) {
-      if (j < end && arr[j] < arr[j + 1]) j++
-      if (temp > arr[j]) break
-      arr[start] = arr[j]
-      start = j
-    }
-    arr[start] = temp
+const myReverse = (head, tail) => {
+  let prev = tail.next;
+  let p = head;
+  while (prev !== tail) {
+      const nex = p.next;
+      p.next = prev;
+      prev = p;
+      p = nex;
   }
-  let len = nums.length
-  for (let i = Math.floor(len / 2 - 1); i >= 0; i--) heapSort(nums, i, len - 1)
-  for (let i = len - 1; i > 0; i--) {
-    let temp = nums[0]
-    nums[0] = nums[i]
-    nums[i] = temp
-    heapSort(nums, 0, i - 1)
-  }
-  return nums[len - k]
+  return [tail, head];
 }
 
+
+
+var reverseKGroup = function(head, k) {
+  const hair = new ListNode(0);
+  hair.next = head;
+  let pre = hair;
+
+  while (head) {
+      let tail = pre;
+      // 查看剩余部分长度是否大于等于 k
+      for (let i = 0; i < k; ++i) {
+          tail = tail.next;
+          if (!tail) {
+              return hair.next;
+          }
+      }
+      const nex = tail.next;
+      [head, tail] = myReverse(head, tail);
+      // 把子链表重新接回原链表
+      pre.next = head;
+      tail.next = nex;
+      pre = tail;
+      head = tail.next;
+  }
+  return hair.next;
+};
+ 
+
 export default function () {
-  findKthLargest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4)
-  console.log('findKthLargest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4): ', findKthLargest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4))
+  reverseKGroup([1,2,3,4,5], 2)
 }
