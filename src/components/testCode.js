@@ -1,43 +1,49 @@
+import { ListNode } from '../leetcode/list' // TreeNode
+
 const myReverse = (head, tail) => {
-  let prev = tail.next;
-  let p = head;
+  let prev = tail.next
+  let p = head
   while (prev !== tail) {
-      const nex = p.next;
-      p.next = prev;
-      prev = p;
-      p = nex;
+    const nex = p.next
+    p.next = prev
+    prev = p
+    p = nex
   }
-  return [tail, head];
+  return [tail, head]
 }
 
-
-
-var reverseKGroup = function(head, k) {
-  const hair = new ListNode(0);
-  hair.next = head;
-  let pre = hair;
+var reverseKGroup = function (head, k) {
+  const hair = new ListNode(0)
+  console.log('hair: ', hair);
+  hair.next = head // 存储原数组
+  let pre = hair
 
   while (head) {
-      let tail = pre;
-      // 查看剩余部分长度是否大于等于 k
-      for (let i = 0; i < k; ++i) {
-          tail = tail.next;
-          if (!tail) {
-              return hair.next;
-          }
+    let tail = pre
+    // 1.查看剩余部分长度是否大于等于 k, 长度不够直接返回原数组
+    for (let i = 0; i < k; ++i) {
+      tail = tail.next
+      if (!tail) {
+        return hair.next
       }
-      const nex = tail.next;
-      [head, tail] = myReverse(head, tail);
-      // 把子链表重新接回原链表
-      pre.next = head;
-      tail.next = nex;
-      pre = tail;
-      head = tail.next;
+    }
+    // 长度足够
+    const nex = tail.next
+    // 反转k个
+    ;[head, tail] = myReverse(head, tail)
+    // 把子链表重新接回原链表
+    pre.next = head
+    tail.next = nex
+    pre = tail
+    head = tail.next
   }
-  return hair.next;
-};
- 
+  console.log('hair: ', hair);
+  return hair.next
+}
 
-export default function () {
-  reverseKGroup([1,2,3,4,5], 2)
+export default function () {  
+  // head [1,2,3,4,5]
+  // head.val 1
+  // head.next [2,3,4,5]
+  console.log('reverseKGroup([1, 2, 3, 4, 5], 2): ', reverseKGroup(ListNode.create([1, 2, 3, 4, 5]), 2));
 }
