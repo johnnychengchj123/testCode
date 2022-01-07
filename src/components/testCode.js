@@ -14,7 +14,6 @@ const myReverse = (head, tail) => {
 
 var reverseKGroup = function (head, k) {
   const hair = new ListNode(0)
-  console.log('hair: ', hair);
   hair.next = head // 存储原数组
   let pre = hair
 
@@ -37,13 +36,11 @@ var reverseKGroup = function (head, k) {
     pre = tail
     head = tail.next
   }
-  console.log('hair: ', hair);
+  hair.visualShow()
+
   return hair.next
 }
 
 export default function () {  
-  // head [1,2,3,4,5]
-  // head.val 1
-  // head.next [2,3,4,5]
-  console.log('reverseKGroup([1, 2, 3, 4, 5], 2): ', reverseKGroup(ListNode.create([1, 2, 3, 4, 5]), 2));
+  ListNode.show(reverseKGroup(ListNode.create([1, 2, 3, 4, 5]), 2))
 }

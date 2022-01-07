@@ -30,14 +30,16 @@ export class ListNode {
       res.push(temp.val)
       temp = temp.next
     }
+    console.log('res: ', res);
     return res
   }
+  
   /**
    * 可视化展示
    * @memberof ListNode
    */
   visualShow() {
-    console.log(ListNode.show(this).join(' -> '))
+    console.log('visualShow', ListNode.show(this).join(' -> '))
   }
 }
 
@@ -90,6 +92,7 @@ export class TreeNode {
     let lastIndex = res.length
     while (lastIndex-- > 0 && res[lastIndex] === null);
     res.splice(lastIndex + 1, res.length - lastIndex - 1)
+    console.log('res: ', res);
     return res
   }
   /**
